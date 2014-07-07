@@ -67,7 +67,7 @@ public class HelloItem extends LinearLayout {
 	}
 	
 	private void setContent(String content) {
-		mTitle.setText(content);
+		mContent.setText(content);
 	}
 
 }
