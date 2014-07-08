@@ -4,7 +4,8 @@
 package com.projects.haru;
 
 
-import com.activeandroid.app.Application;
+import android.app.Application;
+
 import com.projects.haru.datasource.db.DbApi;
 import com.projects.haru.datasource.db.HelloTable.HelloInfo;
 /**
