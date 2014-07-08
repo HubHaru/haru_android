@@ -4,7 +4,6 @@
 package com.projects.haru.datamanager;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 /**
  * @author zeropol2

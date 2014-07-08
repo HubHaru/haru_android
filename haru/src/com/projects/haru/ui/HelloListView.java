@@ -5,7 +5,6 @@ package com.projects.haru.ui;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -13,15 +12,15 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.projects.haru.R;
 import com.projects.haru.dto.HelloDto;
-import com.skplanet.haru.R;
 
 /**
  * @author zeropol2

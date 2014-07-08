@@ -9,9 +9,9 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
+import com.projects.haru.R;
 import com.projects.haru.dto.HelloDto;
 import com.projects.haru.ui.widget.CustomTextView;
-import com.skplanet.haru.R;
 
 /**
  * @author zeropol2

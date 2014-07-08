@@ -11,7 +11,6 @@ import com.projects.haru.datamanager.HelloDataManager;
 import com.projects.haru.dto.HelloDto;
 import com.projects.haru.ui.HelloListView;
 import com.projects.haru.ui.HelloListView.UserActionListener;
-import com.skplanet.haru.R;
 
 public class MainActivity extends ActivityBase{
     

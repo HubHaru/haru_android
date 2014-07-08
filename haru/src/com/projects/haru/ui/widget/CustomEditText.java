@@ -9,7 +9,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
-import com.skplanet.haru.R;
+import com.projects.haru.R;
 
 /**
  * @author zeropol2
