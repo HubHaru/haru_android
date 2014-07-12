@@ -3,4 +3,6 @@
     <string name="app_name">haru</string>
     <string name="main_title">hello haru world</string>
 
+    <string name="setting">설정</string>
+    <string name="add">추가</string>
 </resources>
