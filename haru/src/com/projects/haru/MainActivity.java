@@ -1,23 +1,22 @@
 package com.projects.haru;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
-
 import com.projects.haru.component.ActivityBase;
 import com.projects.haru.datamanager.AsyncDataLoader.OnDataLoadListener;
 import com.projects.haru.datamanager.TaskDataManager;
-import com.projects.haru.dto.TaskDto;
+import com.projects.haru.datasource.db.Task;
 import com.projects.haru.ui.DayViewFooter;
 import com.projects.haru.ui.DayViewListView;
 import com.projects.haru.ui.DayViewListView.OnScrollDirectionListener;
 import com.projects.haru.ui.DayViewListView.UserActionListener;
 import com.projects.haru.ui.DayViewTopBar;
+
+import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends ActivityBase{
     
@@ -56,11 +55,11 @@ public class MainActivity extends ActivityBase{
 			
 		}
 	};
-	
-	private OnDataLoadListener<ArrayList<TaskDto>> mOnDataLoadListener = new OnDataLoadListener<ArrayList<TaskDto>>() {
+
+    private OnDataLoadListener<List<Task>> mOnDataLoadListener = new OnDataLoadListener<List<Task>>() {
 		
 		@Override
-		public void onDataLoad(ArrayList<TaskDto> data) {
+		public void onDataLoad(List<Task> data) {
 			mListView.addList(data);
 			if(null == mListView.getAdapter()) {
 				mListView.setAdapter();

@@ -20,7 +20,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.projects.haru.R;
-import com.projects.haru.dto.HelloDto;
 
 /**
  * @author zeropol2

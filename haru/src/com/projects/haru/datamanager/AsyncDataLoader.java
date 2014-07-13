@@ -9,7 +9,7 @@ import android.os.AsyncTask;
  * @author zeropol2
  * 
  */
-public abstract class AsyncDataLoader<T> extends AsyncTask<Void, Void, T> {
+public abstract class AsyncDataLoader<K, T> extends AsyncTask<K, Void, T> {
 	public interface OnDataLoadListener<T> {
 		public void onDataLoad(T data);
 		public void onDataLoadFail(Exception e);
@@ -20,7 +20,7 @@ public abstract class AsyncDataLoader<T> extends AsyncTask<Void, Void, T> {
 		mOnDataLoadListener = l;
 	}
 	
-	protected abstract T doTask() throws Exception;
+	protected abstract T doTask(K... params) throws Exception;
 	
 	@Override
 	protected void onPreExecute() {
@@ -28,9 +28,9 @@ public abstract class AsyncDataLoader<T> extends AsyncTask<Void, Void, T> {
 	}
 
 	@Override
-	protected T doInBackground(Void... unused) {
+	protected T doInBackground(K... params) {
 		try{
-			return doTask();
+			return doTask(params);
 		} catch(Exception e) {
 			e.printStackTrace();
 			if(null != mOnDataLoadListener) {
@@ -38,7 +38,6 @@ public abstract class AsyncDataLoader<T> extends AsyncTask<Void, Void, T> {
 			}
 			return null;
 		}
-		
 	}
 
 	@Override
