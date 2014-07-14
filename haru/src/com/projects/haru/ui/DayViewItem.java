@@ -71,6 +71,7 @@ public class DayViewItem extends LinearLayout {
 
 	
 	private void init(Context context) {
+		this.setMinimumHeight(400);
 		this.setOrientation(LinearLayout.VERTICAL);
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mLayout = (LinearLayout) inflater.inflate(R.layout.day_view_item,this, true);
