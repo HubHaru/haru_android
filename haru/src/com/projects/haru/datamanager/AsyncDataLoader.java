@@ -38,7 +38,6 @@ public abstract class AsyncDataLoader<T> extends AsyncTask<Void, Void, T> {
 			}
 			return null;
 		}
-		
 	}
 
 	@Override

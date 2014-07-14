@@ -2,6 +2,7 @@ package com.projects.haru;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import android.os.Bundle;
 import android.view.View;
@@ -56,8 +57,8 @@ public class MainActivity extends ActivityBase{
 			
 		}
 	};
-	
-	private OnDataLoadListener<ArrayList<TaskDto>> mOnDataLoadListener = new OnDataLoadListener<ArrayList<TaskDto>>() {
+
+    private OnDataLoadListener<ArrayList<TaskDto>> mOnDataLoadListener = new OnDataLoadListener<ArrayList<TaskDto>>() {
 		
 		@Override
 		public void onDataLoad(ArrayList<TaskDto> data) {

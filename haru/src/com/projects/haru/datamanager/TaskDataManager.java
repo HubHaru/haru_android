@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.projects.haru.datamanager.AsyncDataLoader.OnDataLoadListener;
-import com.projects.haru.datasource.db.DbApi;
 import com.projects.haru.dto.TaskDto;
 
 /**
@@ -35,12 +34,21 @@ public class TaskDataManager {
 		new TaskListLoader(l, cal).execute();
 	}
 	
-	private class TaskListLoader extends AsyncDataLoader<ArrayList<TaskDto>> {
+    
+    private class TaskListLoader extends AsyncDataLoader<ArrayList<TaskDto>> {
 		private Calendar cal;
 		public TaskListLoader(OnDataLoadListener<ArrayList<TaskDto>> l, Calendar cal) {
 			super(l);
 			this.cal = cal;
 		}
+//		@Override
+//        protected List<Task> doTask(Calendar... cals) throws IllegalArgumentException {
+//            if (cals.length == 1) {
+//                return Task.getByDate(cals[0]);
+//            } else {
+//                throw new IllegalArgumentException("파라미터 개수가 1개가 아님");
+//            }
+//        }
 
 		@Override
 		protected ArrayList<TaskDto> doTask() throws Exception{
@@ -59,4 +67,22 @@ public class TaskDataManager {
 			return result;
 		}
 	}
+
+//    /**
+//     * 테스크 DB insert 메소드
+//     * @param task DB에 추가할 테스크
+//     */
+//    public void insertTask(Task task) {
+//        // AA는 insert, update 가 똑같음
+//        task.save();
+//    }
+//
+//    /**
+//     * 테스크 DB update 메소드. task의 tId와 동일한 tId를 가진 DB의 테스크를 task로 업데이트
+//     * @param task DB에 업데이트할 테스크
+//     */
+//    public void updateTask(Task task) {
+//        // AA는 insert, update 가 똑같음
+//        task.save();
+//    }
 }
