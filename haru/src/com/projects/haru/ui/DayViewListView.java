@@ -4,11 +4,6 @@
 
 package com.projects.haru.ui;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-import shared.ui.actionscontentview.ActionsContentView;
-import shared.ui.actionscontentview.ContentLayout;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -16,18 +11,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
+import android.widget.*;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-
 import com.nirhart.parallaxscroll.views.ParallaxListView;
 import com.projects.haru.R;
 import com.projects.haru.dto.TaskDto;
 import com.projects.haru.ui.widget.CustomTextView;
+import shared.ui.actionscontentview.ActionsContentView;
+import shared.ui.actionscontentview.ContentLayout;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author zeropol2
@@ -109,7 +106,7 @@ public class DayViewListView extends LinearLayout {
         mListView.addParallaxedHeaderView(v, null, true);
     }
 
-    public void addList(ArrayList<TaskDto> list) {
+    public void addList(List<TaskDto> list) {
         mDataList.addAll(list);
     }
 
@@ -182,12 +179,12 @@ public class DayViewListView extends LinearLayout {
             mTitle.setText(title);
         }
 
-        private void setStartTime(String startTime) {
-            mStartTime.setText(startTime);
+        private void setStartTime(Calendar startTime) {
+            mStartTime.setText(startTime.get(Calendar.HOUR_OF_DAY)+":"+startTime.get(Calendar.MINUTE));
         }
 
-        private void setEndTime(String endTime) {
-            mEndTime.setText(endTime);
+        private void setEndTime(Calendar endTime) {
+            mEndTime.setText(endTime.get(Calendar.HOUR_OF_DAY)+":"+endTime.get(Calendar.MINUTE));
         }
 
         private void setColor(int color) {
