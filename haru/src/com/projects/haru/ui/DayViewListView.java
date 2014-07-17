@@ -3,26 +3,22 @@
  */
 package com.projects.haru.ui;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
+import android.widget.*;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-
 import com.nirhart.parallaxscroll.views.ParallaxListView;
 import com.projects.haru.R;
 import com.projects.haru.dto.TaskDto;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author zeropol2
@@ -92,7 +88,7 @@ public class DayViewListView extends LinearLayout {
 		mListView.addParallaxedHeaderView(v, null, true);
 	}
 	
-	public void addList(ArrayList<TaskDto> list) {
+	public void addList(List<TaskDto> list) {
 		mDataList.addAll(list);
 	}
 	

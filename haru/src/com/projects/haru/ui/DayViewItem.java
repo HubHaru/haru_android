@@ -9,10 +9,11 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
-
 import com.projects.haru.R;
 import com.projects.haru.dto.TaskDto;
 import com.projects.haru.ui.widget.CustomTextView;
+
+import java.util.Calendar;
 
 /**
  * @author zeropol2
@@ -82,24 +83,24 @@ public class DayViewItem extends LinearLayout {
 		mIsComplted = (CustomTextView)mLayout.findViewById(R.id.day_view_item_complete);
 	}
 	
-	public void setData(TaskDto dto) {
-		setTitle(dto.title);
-		setStartTime(dto.startTime);
-		setEndTime(dto.endTime);
-		setColor(dto.color);
-		setIsCompleted(dto.isCompleted);
+	public void setData(TaskDto taskDto) {
+		setTitle(taskDto.title);
+		setStartTime(taskDto.startTime);
+		setEndTime(taskDto.endTime);
+		setColor(taskDto.color);
+		setIsCompleted(taskDto.isCompleted);
 	}
 	
 	private void setTitle(String title) {
 		mTitle.setText(title);
 	}
 	
-	private void setStartTime(String startTime) {
-		mStartTime.setText(startTime);
+	private void setStartTime(Calendar startTime) {
+		mStartTime.setText(startTime.get(Calendar.HOUR_OF_DAY)+":"+startTime.get(Calendar.MINUTE));
 	}
 	
-	private void setEndTime(String endTime) {
-		mEndTime.setText(endTime);
+	private void setEndTime(Calendar endTime) {
+		mEndTime.setText(endTime.get(Calendar.HOUR_OF_DAY)+":"+endTime.get(Calendar.MINUTE));
 	}
 	
 	private void setColor(int color) {

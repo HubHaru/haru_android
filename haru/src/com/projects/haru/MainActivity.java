@@ -1,17 +1,12 @@
 package com.projects.haru;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
-
 import com.projects.haru.component.ActivityBase;
-import com.projects.haru.datamanager.AsyncDataLoader.OnDataLoadListener;
+import com.projects.haru.datamanager.AsyncDataManager.OnDataLoadListener;
 import com.projects.haru.datamanager.TaskDataManager;
 import com.projects.haru.dto.TaskDto;
 import com.projects.haru.ui.DayViewFooter;
@@ -19,6 +14,9 @@ import com.projects.haru.ui.DayViewListView;
 import com.projects.haru.ui.DayViewListView.OnScrollDirectionListener;
 import com.projects.haru.ui.DayViewListView.UserActionListener;
 import com.projects.haru.ui.DayViewTopBar;
+
+import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends ActivityBase{
     
@@ -46,7 +44,7 @@ public class MainActivity extends ActivityBase{
     }
     
     private void loadData() {
-    	TaskDataManager.getInstance().loadTaskList(mOnDataLoadListener, Calendar.getInstance());
+    	TaskDataManager.getInstance().loadTaskList(mOnDataLoadListener, TaskDto.DATE_FORMAT.format(Calendar.getInstance().getTime()));
     }
     
     private UserActionListener mUserActionListener = new UserActionListener() {
@@ -54,14 +52,14 @@ public class MainActivity extends ActivityBase{
 		@Override
 		public void goDetailPage(long id) {
 			Toast.makeText(MainActivity.this, id+"의 상세페이지로 이동하자", Toast.LENGTH_SHORT).show();
-			
+
 		}
 	};
 
-    private OnDataLoadListener<ArrayList<TaskDto>> mOnDataLoadListener = new OnDataLoadListener<ArrayList<TaskDto>>() {
+    private OnDataLoadListener<List<TaskDto>> mOnDataLoadListener = new OnDataLoadListener<List<TaskDto>>() {
 		
 		@Override
-		public void onDataLoad(ArrayList<TaskDto> data) {
+		public void onDataLoad(List<TaskDto> data) {
 			mListView.addList(data);
 			if(null == mListView.getAdapter()) {
 				mListView.setAdapter();
@@ -69,7 +67,6 @@ public class MainActivity extends ActivityBase{
 				mListView.notifyDataSetChanged();
 			}
 		}
-		
 		@Override
 		public void onDataLoadFail(Exception e) {
 			Toast.makeText(MainActivity.this, "데이터 로드 실패", Toast.LENGTH_SHORT).show();
