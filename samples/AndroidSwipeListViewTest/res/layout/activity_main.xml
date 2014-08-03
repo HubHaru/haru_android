@@ -23,8 +23,8 @@
         swipe:swipeCloseAllItemsWhenMoveList="true"
         swipe:swipeMode="both"
         swipe:swipeOffsetLeft="520px"
-        swipe:swipeOffsetRight="720px"
-        swipe:swipeOpenOnLongPress="false" />
+        swipe:swipeOffsetRight="420px"
+        swipe:swipeOpenOnLongPress="true" />
     
     <!-- swipe:swipeActionLeft="[reveal | dismiss]"
         swipe:swipeActionRight="[reveal | dismiss]"

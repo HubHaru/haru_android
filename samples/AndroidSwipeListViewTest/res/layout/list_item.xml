@@ -3,24 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/back"
         android:layout_width="fill_parent"
-        android:layout_height="100dip"
-        android:background="#FFFF00" >
+        android:layout_height="100dip">
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="100dip"
+            android:layout_width="300px"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
             android:gravity="center"
-            android:text="contents" />
-    </LinearLayout>
+        android:background="#20F220" 
+            android:text="Done" />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="200px"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+        android:background="#F22020" 
+            android:text="Delete" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/front"
         android:layout_width="fill_parent"
         android:layout_height="100dip"
-        android:background="#00FFFF" >
+        android:background="#FFFF00" >
 
         <TextView
             android:id="@+id/text1"

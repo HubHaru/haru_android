@@ -141,6 +141,25 @@ public class SwipeListView extends ListView {
      */
     private SwipeListViewTouchListener touchListener;
 
+    // yk
+    private OnItemDeleteListener mOnItemDeleteListener;
+
+    // yk
+    public SwipeListViewTouchListener getSwipeListViewTouchListener() {
+        return touchListener;
+    }
+
+    // yk
+    public void setOnItemDeleteListener(OnItemDeleteListener listener) {
+        mOnItemDeleteListener = listener;
+    }
+
+    // yk
+    protected void remove(int position) {
+        Log.e(TAG, "called remove()");
+        mOnItemDeleteListener.onRemove(position);
+    }
+
     /**
      * If you create a View programmatically you need send back and front
      * identifier
@@ -163,6 +182,7 @@ public class SwipeListView extends ListView {
      */
     public SwipeListView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mContext = context;
         init(attrs);
     }
 
@@ -172,6 +192,7 @@ public class SwipeListView extends ListView {
      */
     public SwipeListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.mContext = context;
         init(attrs);
     }
 
@@ -245,6 +266,15 @@ public class SwipeListView extends ListView {
         touchListener.setSwipeMode(swipeMode);
         touchListener.setSwipeClosesAllItemsWhenListMoves(swipeCloseAllItemsWhenMoveList);
         touchListener.setSwipeOpenOnLongPress(swipeOpenOnLongPress);
+        touchListener.setSwipeOnLongPressListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                Toast.makeText(mContext, "long click: " + indexOfChild((View) v.getParent()),
+                        Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
         touchListener.setSwipeDrawableChecked(swipeDrawableChecked);
         touchListener.setSwipeDrawableUnchecked(swipeDrawableUnchecked);
         setOnTouchListener(touchListener);
@@ -341,7 +371,7 @@ public class SwipeListView extends ListView {
         } else {
             int[] dismissPositions = new int[1];
             dismissPositions[0] = position;
-            onDismiss(dismissPositions);
+            // onDismiss(dismissPositions);
             touchListener.resetPendingDismisses();
         }
     }
@@ -395,13 +425,10 @@ public class SwipeListView extends ListView {
      * 
      * @param reverseSortedPositions All dismissed positions
      */
-    protected void onDismiss(int[] reverseSortedPositions) {
-        if (DEBUG)
-            Log.e(TAG, "called onDismiss()");
-        Toast.makeText(mContext, reverseSortedPositions.length, Toast.LENGTH_SHORT).show();
-        // if (swipeListViewListener != null) {
-        // swipeListViewListener.onDismiss(reverseSortedPositions);
-        // }
+    public void onDismiss(int[] reverseSortedPositions) {
+        if (swipeListViewListener != null) {
+            swipeListViewListener.onDismiss(reverseSortedPositions);
+        }
     }
 
     /**
