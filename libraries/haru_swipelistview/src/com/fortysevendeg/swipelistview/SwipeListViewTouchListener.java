@@ -1160,6 +1160,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                 if (swipeListView.getHeaderViewsCount() != 0) {
                     swipeListView.remove(dismissPosition - swipeListView.getHeaderViewsCount());
                 }
+                else {
+                    swipeListView.remove(dismissPosition);
+                }
 
             }
         });
