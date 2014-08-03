@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
     }
 
     OnClickListener mOnDeleteItemClickListener = new View.OnClickListener() {
-
+        
         @Override
         public void onClick(View v) {
             if (v.getTag() == null || !(v.getTag() instanceof Integer)) {
@@ -56,9 +56,6 @@ public class MainActivity extends Activity {
             }
             int position = (Integer) v.getTag();
             mListView.getSwipeListViewTouchListener().dismiss(position);
-//            mDataList.remove(position);
-//            mListAdapter.notifyDataSetChanged();
-
         }
     };
 }

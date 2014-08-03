@@ -860,7 +860,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                 boolean swapRight = false;
 
                 // yk - if right gesture before open ( done )
+
                 if (!opened.get(downPosition) && deltaX > 0) {
+                    // on right swipe
                     if (frontView.getTag() == null || (Integer) frontView.getTag() == 0) {
                         frontView.setBackgroundColor(Color.GRAY);
                         frontView.setTag(1);
@@ -869,7 +871,10 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                         frontView.setBackgroundColor(Color.YELLOW);
                         frontView.setTag(0);
                     }
-
+                    swap = false;
+                }
+                else if (!opened.get(downPosition) && velocityTracker.getXVelocity() > 0) {
+                    // on left swipe and motion up right
                     swap = false;
                 }
                 else if (minFlingVelocity <= velocityX && velocityX <= maxFlingVelocity
@@ -1145,7 +1150,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             @Override
             public void onAnimationEnd(Animator animation) {
                 enableDisableViewGroup((ViewGroup) dismissView, true);
-                //yk - remove item
+                // yk - remove item
                 swipeListView.remove(dismissPosition);
             }
         });
