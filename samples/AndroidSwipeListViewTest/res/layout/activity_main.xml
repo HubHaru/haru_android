@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.androidswipelistviewtest.MainActivity" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
+
+    <com.fortysevendeg.swipelistview.SwipeListView
+        xmlns:swipe="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="#00000000"
+        swipe:swipeActionLeft="reveal"
+        swipe:swipeActionRight="reveal"
+        swipe:swipeAnimationTime="300"
+        swipe:swipeFrontView="@+id/front"
+        swipe:swipeBackView="@+id/back"
+        swipe:swipeCloseAllItemsWhenMoveList="true"
+        swipe:swipeMode="both"
+        swipe:swipeOffsetLeft="520px"
+        swipe:swipeOffsetRight="720px"
+        swipe:swipeOpenOnLongPress="false" />
+    
+    <!-- swipe:swipeActionLeft="[reveal | dismiss]"
+        swipe:swipeActionRight="[reveal | dismiss]"
+        swipe:swipeAnimationTime="[miliseconds]"
+        swipe:swipeBackView="@+id/back"
+        swipe:swipeCloseAllItemsWhenMoveList="[true | false]"
+        swipe:swipeFrontView="@+id/front"
+        swipe:swipeMode="[none | both | right | left]"
+        swipe:swipeOffsetLeft="[dimension]"
+        swipe:swipeOffsetRight="[dimension]"
+        swipe:swipeOpenOnLongPress="[true | false]" -->
+
+</RelativeLayout>
