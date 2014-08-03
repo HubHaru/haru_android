@@ -1,127 +1,121 @@
+
 package com.projects.haru;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import com.fortysevendeg.swipelistview.OnItemDeleteListener;
+import com.fortysevendeg.swipelistview.SwipeListView;
 import com.projects.haru.component.ActivityBase;
 import com.projects.haru.datamanager.AsyncDataManager.OnDataLoadListener;
 import com.projects.haru.datamanager.TaskDataManager;
 import com.projects.haru.dto.TaskDto;
 import com.projects.haru.ui.DayViewFooter;
-import com.projects.haru.ui.DayViewListView;
-import com.projects.haru.ui.DayViewListView.OnScrollDirectionListener;
-import com.projects.haru.ui.DayViewListView.UserActionListener;
 import com.projects.haru.ui.DayViewTopBar;
+import com.projects.haru.ui.widget.HelloAdapter;
 
-import java.util.Calendar;
-import java.util.List;
-
-public class MainActivity extends ActivityBase{
+public class MainActivity extends ActivityBase {
     
-	private DayViewTopBar mTopBar;
-	private DayViewListView mListView;
-	private DayViewFooter mFooter;
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private DayViewTopBar mTopBar;
+    private SwipeListView mListView;
+    private DayViewFooter mFooter;
+
+    // yk
+    private List<TaskDto> mDataList;
+    private HelloAdapter mListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initLayout();
         loadData();
     }
-    
+
     @Override
     protected void initLayout() {
-    	setContentView(R.layout.activity_main);
-    	mListView = (DayViewListView)findViewById(R.id.activity_main_day_view_listview);
-    	mListView.setUserActionLisetner(mUserActionListener);
-    	mTopBar = new DayViewTopBar(this);
-    	mTopBar.setData(Calendar.getInstance());
-    	mTopBar.setUserActionListener(mTopBarUserActionListener);
-    	mListView.addParallaxedHeaderView(mTopBar);
-    	mFooter = (DayViewFooter)findViewById(R.id.activity_main_day_view_footer);
-    	mFooter.setUserActionListener(mFooterUserActionListener);
-    	mListView.setOnScrollDirectionListener(mOnScrollDirectionListener);
-    }
-    
-    private void loadData() {
-    	TaskDataManager.getInstance().loadTaskList(mOnDataLoadListener, TaskDto.DATE_FORMAT.format(Calendar.getInstance().getTime()));
-    }
-    
-    private UserActionListener mUserActionListener = new UserActionListener() {
-		
-		@Override
-		public void goDetailPage(long id) {
-			Toast.makeText(MainActivity.this, id+"의 상세페이지로 이동하자", Toast.LENGTH_SHORT).show();
+        setContentView(R.layout.activity_main);
+        mListView = (SwipeListView) findViewById(R.id.day_view_listview_listview);
+        mTopBar = new DayViewTopBar(this);
+        mTopBar.setData(Calendar.getInstance());
+        mTopBar.setUserActionListener(mTopBarUserActionListener);
+        mListView.addHeaderView(mTopBar);
+        mFooter = (DayViewFooter) findViewById(R.id.activity_main_day_view_footer);
+        mFooter.setUserActionListener(mFooterUserActionListener);
 
-		}
-	};
+        mDataList = new ArrayList<TaskDto>();
+        mListAdapter = new HelloAdapter(this, mDataList);
+        mListAdapter.setOnDeleteItemClickListener(mOnDeleteItemClickListener);
+        mListView.setAdapter(mListAdapter);
+        mListView.setOnItemDeleteListener(new OnItemDeleteListener() {
+
+            @Override
+            public void onRemove(int position) {
+                mDataList.remove(position);
+                mListAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void loadData() {
+        TaskDataManager.getInstance().loadTaskList(mOnDataLoadListener,
+                TaskDto.DATE_FORMAT.format(Calendar.getInstance().getTime()));
+    }
 
     private OnDataLoadListener<List<TaskDto>> mOnDataLoadListener = new OnDataLoadListener<List<TaskDto>>() {
-		
-		@Override
-		public void onDataLoad(List<TaskDto> data) {
-			mListView.addList(data);
-			if(null == mListView.getAdapter()) {
-				mListView.setAdapter();
-			} else {
-				mListView.notifyDataSetChanged();
-			}
-		}
-		@Override
-		public void onDataLoadFail(Exception e) {
-			Toast.makeText(MainActivity.this, "데이터 로드 실패", Toast.LENGTH_SHORT).show();
-		}
-	};
-	
-	private DayViewTopBar.UserActionListener mTopBarUserActionListener = new DayViewTopBar.UserActionListener() {
-		
-		@Override
-		public void goWeekView(Calendar cal) {
-			Toast.makeText(MainActivity.this, "주별 보기로 이동할겁니다만,,크큭", Toast.LENGTH_SHORT).show();
-		}
-	};
-	
-	private DayViewFooter.UserActionListener mFooterUserActionListener = new DayViewFooter.UserActionListener() {
-		
-		@Override
-		public void goSetting() {
-			Toast.makeText(MainActivity.this, "설정 페이지로 이동할겁니다만,,크큭", Toast.LENGTH_SHORT).show();
-		}
-		
-		@Override
-		public void goAdd() {
-			Toast.makeText(MainActivity.this, "추가 페이지로 이동할겁니다만,,크큭", Toast.LENGTH_SHORT).show();
-		}
-	};
-	
-	private DayViewListView.OnScrollDirectionListener mOnScrollDirectionListener = new OnScrollDirectionListener() {
-		
-		@Override
-		public void onScrollUp() {
-			if(View.GONE == mFooter.getVisibility()) {
-				mFooter.setVisibility(View.VISIBLE);
-				Animation fadeInAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_in);
-				mFooter.startAnimation(fadeInAnim);
-			}
-		}
-		
-		@Override
-		public void onScrollDown() {
-			if(View.VISIBLE == mFooter.getVisibility()) {
-				Animation fadeOutAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_out);
-				mFooter.startAnimation(fadeOutAnim);
-				mFooter.setVisibility(View.GONE);
-			}
-		}
-		
-		@Override
-		public void onScrollStop() {
-			if(View.GONE == mFooter.getVisibility()) {
-				mFooter.setVisibility(View.VISIBLE);
-				Animation fadeInAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fade_in);
-				mFooter.startAnimation(fadeInAnim);
-			}
-		}
-	};
+
+        @Override
+        public void onDataLoad(List<TaskDto> data) {
+            mDataList.addAll(data);
+            mListAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onDataLoadFail(Exception e) {
+            Toast.makeText(MainActivity.this, "데이터 로드 실패", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private DayViewTopBar.UserActionListener mTopBarUserActionListener = new DayViewTopBar.UserActionListener() {
+
+        @Override
+        public void goWeekView(Calendar cal) {
+            Toast.makeText(MainActivity.this, "주별 보기로 이동할겁니다만,,크큭", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private DayViewFooter.UserActionListener mFooterUserActionListener = new DayViewFooter.UserActionListener() {
+
+        @Override
+        public void goSetting() {
+            Toast.makeText(MainActivity.this, "설정 페이지로 이동할겁니다만,,크큭", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void goAdd() {
+            Toast.makeText(MainActivity.this, "추가 페이지로 이동할겁니다만,,크큭", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    OnClickListener mOnDeleteItemClickListener = new View.OnClickListener() {
+        
+        @Override
+        public void onClick(View v) {
+            if (v.getTag() == null || !(v.getTag() instanceof Integer)) {
+                return;
+            }
+            int position = (Integer) v.getTag();
+            Log.e(TAG, "position: "+position);
+            mListView.getSwipeListViewTouchListener().dismiss(position);
+        }
+    };
 
 }

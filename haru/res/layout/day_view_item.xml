@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/day_view_item_back"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#F0F0F0" >
+        android:layout_height="100dp" >
+
+        <TextView
+            android:layout_width="300px"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="#20F220"
+            android:gravity="center"
+            android:text="Done" />
+
+        <TextView
+            android:id="@+id/day_view_item_back_delete"
+            android:layout_width="200px"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="#F22020"
+            android:gravity="center"
+            android:text="Delete" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/day_view_item_front"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#F0F0F0"
+        android:orientation="vertical" >
 
         <com.projects.haru.ui.widget.CustomTextView
             android:id="@+id/day_view_item_title"
@@ -35,4 +59,4 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

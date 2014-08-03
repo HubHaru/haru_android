@@ -405,6 +405,12 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      *         cell to dismiss.
      */
     public int dismiss(int position) {
+        if (swipeListView.getHeaderViewsCount() != 0) {
+            position += swipeListView.getHeaderViewsCount();
+        }
+
+        Log.e(TAG, "called dismiss(): " + position);
+
         opened.remove(position);
         checked.remove(position);
         int start = swipeListView.getFirstVisiblePosition();
@@ -868,7 +874,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                         frontView.setTag(1);
                     }
                     else {
-                        frontView.setBackgroundColor(Color.YELLOW);
+                        frontView.setBackgroundColor(Color.parseColor("#F0F0F0"));
                         frontView.setTag(0);
                     }
                     swap = false;
@@ -1151,7 +1157,10 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             public void onAnimationEnd(Animator animation) {
                 enableDisableViewGroup((ViewGroup) dismissView, true);
                 // yk - remove item
-                swipeListView.remove(dismissPosition);
+                if (swipeListView.getHeaderViewsCount() != 0) {
+                    swipeListView.remove(dismissPosition - swipeListView.getHeaderViewsCount());
+                }
+
             }
         });
 

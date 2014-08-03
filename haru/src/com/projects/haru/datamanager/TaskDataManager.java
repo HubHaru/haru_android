@@ -48,10 +48,18 @@ public class TaskDataManager {
             }
 
             List<Task> taskList = DbApi.selectByDate(dates[0]);
-            List<TaskDto> taskDtoList = new ArrayList<TaskDto>(taskList.size());
-            for(Task task : taskList) {
+//            List<TaskDto> taskDtoList = new ArrayList<TaskDto>(taskList.size());
+//            for (Task task : taskList) {
+//                taskDtoList.add(convertToTaskDto(task));
+//            }   
+            
+            List<TaskDto> taskDtoList = new ArrayList<TaskDto>();
+            for (int i=0; i<10; i++) {
+                Task task = taskList.get(0);
+                task.title = "테스트 제목" + (i+1);
                 taskDtoList.add(convertToTaskDto(task));
             }
+
             return taskDtoList;
 		}
 
