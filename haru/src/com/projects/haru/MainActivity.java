@@ -33,7 +33,7 @@ public class MainActivity extends ActivityBase {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private final static int MINIMIZE_SIZE = 60;
-
+    
     // private DayViewTopBar mTopBar;
 
     private FontFitTextView mTopBar;
@@ -110,18 +110,18 @@ public class MainActivity extends ActivityBase {
                 Log.e(TAG, "resizeHeight: " + resizeHeight);
                 Log.e(TAG, "mPlaceHolder.getHeight(): " + mViewHolder.getHeight());
 
-                LayoutParams headerLayoutParams = mTopLayout.getLayoutParams();
-                headerLayoutParams.height = resizeHeight;
-                mTopLayout.setLayoutParams(headerLayoutParams);
-
-                int resizeWidth = mTopBar.getWidth();
-                if (mViewHolder.getHeight() != 0)
-                    resizeWidth = resizeWidth * resizeHeight / mViewHolder.getHeight() / 5;
-
-                LayoutParams layoutParams = mTopBar.getLayoutParams();
-                layoutParams.height = resizeHeight;
-                mTopBar.setLayoutParams(layoutParams);
-                mTopBar.refitText(mTopBar.getText().toString(), resizeWidth);
+//                LayoutParams headerLayoutParams = mTopLayout.getLayoutParams();
+//                headerLayoutParams.height = resizeHeight;
+//                mTopLayout.setLayoutParams(headerLayoutParams);
+//
+//                int resizeWidth = mTopBar.getWidth();
+//                if (mViewHolder.getHeight() != 0)
+//                    resizeWidth = resizeWidth * resizeHeight / mViewHolder.getHeight() / 5;
+//
+//                LayoutParams layoutParams = mTopBar.getLayoutParams();
+//                layoutParams.height = resizeHeight;
+//                mTopBar.setLayoutParams(layoutParams);
+//                mTopBar.refitText(mTopBar.getText().toString(), resizeWidth);
             }
         });
     }
