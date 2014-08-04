@@ -14,7 +14,8 @@
             android:layout_alignParentLeft="true"
             android:background="#20F220"
             android:gravity="center"
-            android:text="Done" />
+            android:text="Done"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/day_view_item_back_delete"
@@ -23,7 +24,8 @@
             android:layout_alignParentRight="true"
             android:background="#F22020"
             android:gravity="center"
-            android:text="Delete" />
+            android:text="Delete"
+            android:textColor="#FFFFFF" />
     </RelativeLayout>
 
     <LinearLayout
@@ -36,27 +38,32 @@
         <com.projects.haru.ui.widget.CustomTextView
             android:id="@+id/day_view_item_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
 
         <com.projects.haru.ui.widget.CustomTextView
             android:id="@+id/day_view_item_start_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
 
         <com.projects.haru.ui.widget.CustomTextView
             android:id="@+id/day_view_item_end_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
 
         <com.projects.haru.ui.widget.CustomTextView
             android:id="@+id/day_view_item_color"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
 
         <com.projects.haru.ui.widget.CustomTextView
             android:id="@+id/day_view_item_complete"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
     </LinearLayout>
 
 </RelativeLayout>

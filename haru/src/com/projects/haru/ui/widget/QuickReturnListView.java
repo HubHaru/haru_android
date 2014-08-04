@@ -24,7 +24,6 @@ import android.widget.ListView;
 
 public class QuickReturnListView extends ListView {
     
-
 	private int mItemCount;
 	private int mItemOffsetY[];
 	private boolean scrollIsComputed = false;

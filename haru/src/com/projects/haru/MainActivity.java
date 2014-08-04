@@ -7,8 +7,14 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.fortysevendeg.swipelistview.OnItemDeleteListener;
@@ -19,13 +25,23 @@ import com.projects.haru.datamanager.TaskDataManager;
 import com.projects.haru.dto.TaskDto;
 import com.projects.haru.ui.DayViewFooter;
 import com.projects.haru.ui.DayViewTopBar;
+import com.projects.haru.ui.widget.FontFitTextView;
 import com.projects.haru.ui.widget.HelloAdapter;
 
 public class MainActivity extends ActivityBase {
-    
+
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private DayViewTopBar mTopBar;
+    private final static int MINIMIZE_SIZE = 60;
+
+    // private DayViewTopBar mTopBar;
+
+    private FontFitTextView mTopBar;
+    private LinearLayout mTopLayout;
+    
+    private View mHeader;
+    private View mViewHolder;
+
     private SwipeListView mListView;
     private DayViewFooter mFooter;
 
@@ -44,10 +60,22 @@ public class MainActivity extends ActivityBase {
     protected void initLayout() {
         setContentView(R.layout.activity_main);
         mListView = (SwipeListView) findViewById(R.id.day_view_listview_listview);
-        mTopBar = new DayViewTopBar(this);
-        mTopBar.setData(Calendar.getInstance());
-        mTopBar.setUserActionListener(mTopBarUserActionListener);
-        mListView.addHeaderView(mTopBar);
+
+        // mTopBar = new DayViewTopBar(this);
+        // mTopBar.setData(Calendar.getInstance());
+        // mTopBar.setUserActionListener(mTopBarUserActionListener);
+
+        mTopBar = (FontFitTextView) findViewById(R.id.day_view_topbar_date);
+        mTopLayout = (LinearLayout) findViewById(R.id.day_view_topbar);
+        
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(
+                LAYOUT_INFLATER_SERVICE);
+        mHeader = inflater.inflate(R.layout.header, null);
+        mViewHolder = mHeader.findViewById(R.id.placeholder);
+        mListView.addHeaderView(mHeader);
+
+        // mListView.addHeaderView(mTopBar);
         mFooter = (DayViewFooter) findViewById(R.id.activity_main_day_view_footer);
         mFooter.setUserActionListener(mFooterUserActionListener);
 
@@ -61,6 +89,39 @@ public class MainActivity extends ActivityBase {
             public void onRemove(int position) {
                 mDataList.remove(position);
                 mListAdapter.notifyDataSetChanged();
+            }
+        });
+        mListView.setOnScrollListener(new OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                    int totalItemCount) {
+
+                int resizeHeight = mViewHolder.getHeight() + mHeader.getTop();
+
+                if (resizeHeight <= MINIMIZE_SIZE)
+                    resizeHeight = MINIMIZE_SIZE;
+
+                Log.e(TAG, "resizeHeight: " + resizeHeight);
+                Log.e(TAG, "mPlaceHolder.getHeight(): " + mViewHolder.getHeight());
+
+                LayoutParams headerLayoutParams = mTopLayout.getLayoutParams();
+                headerLayoutParams.height = resizeHeight;
+                mTopLayout.setLayoutParams(headerLayoutParams);
+
+                int resizeWidth = mTopBar.getWidth();
+                if (mViewHolder.getHeight() != 0)
+                    resizeWidth = resizeWidth * resizeHeight / mViewHolder.getHeight() / 5;
+
+                LayoutParams layoutParams = mTopBar.getLayoutParams();
+                layoutParams.height = resizeHeight;
+                mTopBar.setLayoutParams(layoutParams);
+                mTopBar.refitText(mTopBar.getText().toString(), resizeWidth);
             }
         });
     }
@@ -106,14 +167,14 @@ public class MainActivity extends ActivityBase {
     };
 
     OnClickListener mOnDeleteItemClickListener = new View.OnClickListener() {
-        
+
         @Override
         public void onClick(View v) {
             if (v.getTag() == null || !(v.getTag() instanceof Integer)) {
                 return;
             }
             int position = (Integer) v.getTag();
-            Log.e(TAG, "position: "+position);
+            Log.e(TAG, "position: " + position);
             mListView.getSwipeListViewTouchListener().dismiss(position);
         }
     };

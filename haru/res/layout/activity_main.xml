@@ -20,6 +20,30 @@
         swipe:swipeOffsetRight="420px"
         swipe:swipeOpenOnLongPress="true" />
 
+    <!--
+         <com.projects.haru.ui.DayViewTopBar
+        android:id="@+id/activity_main_day_view_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+    -->
+
+    <LinearLayout
+         android:id="@+id/day_view_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="180px"
+        android:orientation="horizontal" >
+
+        <com.projects.haru.ui.widget.FontFitTextView
+            android:id="@+id/day_view_topbar_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#202020"
+            android:gravity="bottom"
+            android:text="test"
+            android:textColor="#565656"
+            android:textSize="30dp" />
+    </LinearLayout>
+
     <com.projects.haru.ui.DayViewFooter
         android:id="@+id/activity_main_day_view_footer"
         android:layout_width="match_parent"
